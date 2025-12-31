@@ -38,7 +38,7 @@ To use these scripts in Termux:
     ```
 2.  **Navigate to the script directory**:
     ```bash
-    cd /data/data/com.termux/files/home/adbshellrun/usb-test/
+    cd /data/data/com.termux/files/home/usb-test/
     ```
 3.  **Run the desired script**: For example, to list all USB info:
     ```bash
