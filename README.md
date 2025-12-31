@@ -32,7 +32,7 @@ The primary goal of these scripts is to provide a starting point for developers 
 
 To use these scripts in Termux:
 
-1.  **Install necessary tools**: You'll likely need `clang` for compiling C code and `make` if a `Makefile` is present (though currently, compilation is handled directly in `.sh` files).
+1.  **Install necessary tools**: You'll likely need `gcc` for compiling C code and `make` if a `Makefile` is present (though currently, compilation is handled directly in `.sh` files).
     ```bash
     pkg install clang make
     ```
