@@ -1,43 +1,42 @@
 # Utilities for USB Device Inspection
 
-This directory contains a collection of scripts and programs for listing and inspecting connected USB devices.
+This directory contains C programs for listing and inspecting connected USB devices within the Termux environment.
 
 ## Files
 
-### `list_all_usb_info.sh`
+### `usb_info.c`
 
-This script iterates through all connected USB devices and prints general information for each one, such as the device path, vendor ID, product ID, manufacturer, and product name.
+This C program displays general information about a single USB device. It takes a file descriptor (provided by `termux-usb`) as an argument. It uses `libusb` functions to retrieve and print the device's Vendor ID, Product ID, Manufacturer, Product Name, and Serial Number.
 
-**Usage:**
+### `get_device_descriptors.c`
 
-```bash
-./list_all_usb_info.sh
-```
+This C program provides a more detailed inspection of a USB device. It also takes a file descriptor as an argument and uses `libusb` to:
+- Retrieve and print the main device descriptor.
+- Iterate through all configurations, printing their descriptors.
+- For each configuration, iterate through all interfaces, printing their descriptors.
+- For each interface, iterate through all endpoints, printing their descriptors.
+- Attempt to read and display the HID Report Descriptor if the interface is identified as a Human Interface Device (HID).
+This program is crucial for in-depth analysis of a device's capabilities and communication structure.
 
-### `usb_info.c` and `usb_info.sh`
+## How It Works (Common to C Programs)
 
-`usb_info.c` is a C program that displays general information about a single USB device, given its file descriptor. `usb_info.sh` is a wrapper script to be used with `termux-usb`.
+Both `usb_info.c` and `get_device_descriptors.c` utilize the `libusb` library in a specific way to function within Termux:
+1.  They disable standard `libusb` device discovery (`LIBUSB_OPTION_NO_DEVICE_DISCOVERY`).
+2.  They use `libusb_wrap_sys_device` to "wrap" an existing system file descriptor (provided by `termux-usb -e`) into a `libusb_device_handle`. This allows `libusb` to interact with a specific USB device that Termux has already granted access to, bypassing the typical device enumeration limitations.
 
-**Usage:**
+## Usage
 
-1.  Find the device path using `list_all_usb_info.sh`.
-2.  Execute the script with `termux-usb`:
+You can use the `list_all_usb_info.sh` script to list general information (like that provided by `usb_info.c`) for all connected USB devices and find their device paths. Once you have a device path (e.g., `/dev/bus/usb/001/003`), you can use `termux-usb -e` to execute these programs:
+
+*   **To get general USB information:**
 
     ```bash
     termux-usb -e ./usb_info /dev/bus/usb/001/003
     ```
 
-### `get_device_descriptors.c` and `get_device_descriptors.sh`
-
-`get_device_descriptors.c` is a C program that prints detailed USB device and configuration descriptors for a given device. `get_device_descriptors.sh` is a wrapper script for use with `termux-usb`.
-
-This is useful for in-depth USB device analysis, allowing you to see all endpoints, interfaces, and their properties.
-
-**Usage:**
-
-1.  Find the device path using `list_all_usb_info.sh`.
-2.  Execute the program with `termux-usb`:
+*   **To get detailed device descriptors:**
 
     ```bash
     termux-usb -e ./get_device_descriptors /dev/bus/usb/001/003
     ```
+    (Replace `/dev/bus/usb/001/003` with the actual device path.)
