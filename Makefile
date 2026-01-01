@@ -1,7 +1,7 @@
 CC = gcc
 CFLAGS = -Wall -Wextra -g
 
-TARGETS = get_device_descriptors read_gamepad_raw usb_info
+TARGETS = get_device_descriptors read_gamepad_raw usb_info read_serial
 
 all: $(TARGETS)
 
@@ -12,6 +12,9 @@ read_gamepad_raw: read_gamepad_raw.c
 	$(CC) $(CFLAGS) -o $@ $< -lusb-1.0
 
 usb_info: usb_info.c
+	$(CC) $(CFLAGS) -o $@ $< -lusb-1.0
+
+read_serial: read_serial.c
 	$(CC) $(CFLAGS) -o $@ $< -lusb-1.0
 
 clean:
