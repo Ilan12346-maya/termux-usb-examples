@@ -35,12 +35,12 @@ These scripts rely on `libusb` and the `termux-usb` utility to access the USB de
     *   **To read raw gamepad data:**
 
         ```bash
-        termux-usb -e ./read_gamepad_raw.sh /dev/bus/usb/001/005
+        termux-usb -e ./read_gamepad_raw /dev/bus/usb/001/005
         ```
 
     *   **To read decoded gamepad data:**
         ```bash
-        termux-usb -e ./read_gamepad.sh /dev/bus/usb/001/005
+        termux-usb -e ./read_gamepad /dev/bus/usb/001/005
         ```
 
     (Replace `/dev/bus/usb/001/005` with the actual device path of your USB gamepad.)
