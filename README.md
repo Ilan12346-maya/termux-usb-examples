@@ -7,22 +7,20 @@ This repository contains a collection of shell scripts and C programs designed f
 This repository is organized into the following directories:
 
 *   **`usb-gamepad/`**: Contains C programs and shell scripts for interacting with USB gamepads.
+    *   `gamepad_decode.h`: Header file for gamepad decoding.
     *   `read_gamepad.c`: C program to read gamepad input.
+    *   `read_gamepad.sh`: Shell script wrapper for `read_gamepad`.
     *   `read_gamepad_raw.c`: C program to read raw gamepad input.
     *   `read_gamepad_raw.sh`: Shell script wrapper for `read_gamepad_raw`.
 *   **`usb-serial/`**: Contains C programs and shell scripts for interacting with USB serial devices.
     *   `read_serial.c`: C program to read from a USB serial device.
     *   `read_serial.sh`: Shell script wrapper for `read_serial`.
-*   **`util/`**: Contains various utility C programs, Python scripts, and shell scripts.
+*   **`util/`**: Contains various utility C programs and shell scripts.
     *   `get_device_descriptors.c`: C program to get detailed USB device descriptors.
     *   `get_device_descriptors.sh`: Shell script wrapper for `get_device_descriptors`.
     *   `list_all_usb_info.sh`: Shell script to list general information about all connected USB devices.
     *   `usb_info.c`: C program to display general USB information.
     *   `usb_info.sh`: Shell script wrapper for `usb_info`.
-    *   `analyze_gamepad.py`: Python script for analyzing gamepad data.
-    *   `gamepad_decode.h`: Header file for gamepad decoding.
-    *   `parse_gamepad_data`: Executable for parsing gamepad data.
-    *   `parse_gamepad_data.c`: C program for parsing gamepad data.
 
 ## Purpose
 
