@@ -20,8 +20,5 @@ usb-serial/read_serial: usb-serial/read_serial.c
 usb-gamepad/read_gamepad: usb-gamepad/read_gamepad.c
 	$(CC) $(CFLAGS) -o $@ $< -lusb-1.0
 
-util/parse_gamepad_data: util/parse_gamepad_data.c
-	$(CC) $(CFLAGS) -o $@ $< -lusb-1.0
-
 clean:
 	rm -f $(TARGETS) *.o
