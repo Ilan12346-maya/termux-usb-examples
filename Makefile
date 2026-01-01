@@ -1,20 +1,26 @@
 CC = gcc
 CFLAGS = -Wall -Wextra -g
 
-TARGETS = get_device_descriptors read_gamepad_raw usb_info read_serial
+TARGETS = util/get_device_descriptors usb-gamepad/read_gamepad_raw util/usb_info usb-serial/read_serial usb-gamepad/read_gamepad util/parse_gamepad_data
 
 all: $(TARGETS)
 
-get_device_descriptors: get_device_descriptors.c
+util/get_device_descriptors: util/get_device_descriptors.c
 	$(CC) $(CFLAGS) -o $@ $< -lusb-1.0
 
-read_gamepad_raw: read_gamepad_raw.c
+usb-gamepad/read_gamepad_raw: usb-gamepad/read_gamepad_raw.c
 	$(CC) $(CFLAGS) -o $@ $< -lusb-1.0
 
-usb_info: usb_info.c
+util/usb_info: util/usb_info.c
 	$(CC) $(CFLAGS) -o $@ $< -lusb-1.0
 
-read_serial: read_serial.c
+usb-serial/read_serial: usb-serial/read_serial.c
+	$(CC) $(CFLAGS) -o $@ $< -lusb-1.0
+
+usb-gamepad/read_gamepad: usb-gamepad/read_gamepad.c
+	$(CC) $(CFLAGS) -o $@ $< -lusb-1.0
+
+util/parse_gamepad_data: util/parse_gamepad_data.c
 	$(CC) $(CFLAGS) -o $@ $< -lusb-1.0
 
 clean:

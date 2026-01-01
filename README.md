@@ -4,11 +4,25 @@ This repository contains a collection of shell scripts and C programs designed f
 
 ## Contents
 
--   `get_device_descriptors.sh`: Shell script to run to display device descriptors.
--   `list_all_usb_info.sh`: A shell script to list general information about all connected USB devices.
--   `read_gamepad_raw.sh`: Shell script to run and display raw gamepad input.
--   `usb_info.sh`: Shell script to run to display USB information.
--   `read_serial.sh`: USB Serial example tested with Arduino Leonardo 
+This repository is organized into the following directories:
+
+*   **`usb-gamepad/`**: Contains C programs and shell scripts for interacting with USB gamepads.
+    *   `read_gamepad.c`: C program to read gamepad input.
+    *   `read_gamepad_raw.c`: C program to read raw gamepad input.
+    *   `read_gamepad_raw.sh`: Shell script wrapper for `read_gamepad_raw`.
+*   **`usb-serial/`**: Contains C programs and shell scripts for interacting with USB serial devices.
+    *   `read_serial.c`: C program to read from a USB serial device.
+    *   `read_serial.sh`: Shell script wrapper for `read_serial`.
+*   **`util/`**: Contains various utility C programs, Python scripts, and shell scripts.
+    *   `get_device_descriptors.c`: C program to get detailed USB device descriptors.
+    *   `get_device_descriptors.sh`: Shell script wrapper for `get_device_descriptors`.
+    *   `list_all_usb_info.sh`: Shell script to list general information about all connected USB devices.
+    *   `usb_info.c`: C program to display general USB information.
+    *   `usb_info.sh`: Shell script wrapper for `usb_info`.
+    *   `analyze_gamepad.py`: Python script for analyzing gamepad data.
+    *   `gamepad_decode.h`: Header file for gamepad decoding.
+    *   `parse_gamepad_data`: Executable for parsing gamepad data.
+    *   `parse_gamepad_data.c`: C program for parsing gamepad data.
 
 ## Purpose
 
@@ -18,12 +32,12 @@ The primary goal of these scripts is to provide a starting point for developers 
 -   Access raw input data from USB gamepads (e.g., Xbox gamepads) in a command-line environment.
 -   Develop custom applications or drivers that interact with USB hardware in termux.
 
-## Use in Termux 
+## Use in Termux
 
-get the right file descriptor by running
+To use these scripts, you first need to identify the device path of your USB device. You can do this by running `list_all_usb_info.sh`:
 
-```
-./list_all_usb_info.sh
+```bash
+./util/list_all_usb_info.sh
 
 Listing information for all connected USB devices:
 --------------------------------------------------
@@ -39,15 +53,22 @@ Serial No:
 Finished listing USB device information.
 ```
 
-like in termux-usb docs:
+Once you have the device path (e.g., `/dev/bus/usb/001/003`), you can use the `termux-usb -e` option to execute the desired script with the correct file descriptor.
 
-Use the -e option of termux-usb to run get_device_descriptors with the correct file descriptor:
+**Examples:**
 
-```
-termux-usb -e ./get_device_descriptors.sh /dev/bus/usb/001/003
-```
-change it in the .sh files 
+*   **Get Device Descriptors:**
+    ```bash
+    termux-usb -e ./util/get_device_descriptors.sh /dev/bus/usb/001/003
+    ```
 
-## Contribution
+*   **Read Raw Gamepad Input:**
+    ```bash
+    termux-usb -e ./usb-gamepad/read_gamepad_raw.sh /dev/bus/usb/001/003
+    ```
 
-Feel free to fork this repository, submit pull requests, or open issues if you find bugs or have suggestions for improvements. This project is intended as a foundation for further development.
+*   **Read from USB Serial Device:**
+    ```bash
+    termux-usb -e ./usb-serial/read_serial.sh /dev/bus/usb/001/003
+    ```
+
